@@ -1,0 +1,42 @@
+2023-Mar-12 16:28:01 Наличие необходимых модулей php (check_php_modules): Ok
+Все необходимые модули установлены
+2023-Mar-12 16:28:01 Обязательные параметры PHP (check_php_settings): Ok
+Настройки правильные
+2023-Mar-12 16:28:01 Модули веб-сервера (check_security): Ok
+Конфликтов не выявлено
+2023-Mar-12 16:28:01 Значения переменных сервера (check_server_vars): Ok
+Корректные
+2023-Mar-12 16:28:01 Сохранение сессии (check_session): Ok
+50% done
+2023-Mar-12 16:28:01 Параметры настройки UTF (mbstring и константа BX_UTF) (check_mbstring): Ok
+Правильные. Сайт работает в UTF кодировке
+2023-Mar-12 16:28:01 Служебные скрипты в корне сайта (check_install_scripts): Ok
+Отсутствуют
+2023-Mar-12 16:28:01 Работа с сокетами (check_socket): Fail
+Connection to dev.allmongolia.ru:80	Success
+== Request ==
+GET /bitrix/admin/site_checker.php?test_type=socket_test&unique_id=cb222f4f781f9d2e9ac0c7b17488dc02 HTTP/1.1
+Host: dev.allmongolia.ru
+
+
+== Response ==
+HTTP/1.1 301 Moved Permanently
+Server: nginx
+Date: Sun, 12 Mar 2023 13:28:01 GMT
+Content-Type: text/html
+Transfer-Encoding: chunked
+Connection: keep-alive
+Location: https://dev.allmongolia.ru:443/bitrix/admin/site_checker.php?test_type=socket_test&unique_id=cb222f4f781f9d2e9ac0c7b17488dc02
+
+== Body ==
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+==========
+
+Ошибка! Не работает

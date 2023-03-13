@@ -1,0 +1,46 @@
+<?php
+
+namespace Dolyame\Payment;
+
+class MeasureCodeToStringMapper
+{
+	/**
+	 * @var array
+	 */
+	private static $map = [
+		'796'  => 'DOLYAME.PAYMENT_MEASURE_UNIT',
+		'163'  => 'DOLYAME.PAYMENT_MEASURE_UNIT_G',
+		'166'  => 'DOLYAME.PAYMENT_MEASURE_UNIT_KG',
+		'168'  => 'DOLYAME.PAYMENT_MEASURE_UNIT_T',
+		'4'    => 'DOLYAME.PAYMENT_MEASURE_UNIT_CM',
+		'5'    => 'DOLYAME.PAYMENT_MEASURE_UNIT_DM',
+		'6'    => 'DOLYAME.PAYMENT_MEASURE_UNIT_M',
+		'51'   => 'DOLYAME.PAYMENT_MEASURE_UNIT_CM2',
+		'53'   => 'DOLYAME.PAYMENT_MEASURE_UNIT_DM2',
+		'55'   => 'DOLYAME.PAYMENT_MEASURE_UNIT_M2',
+		'111'  => 'DOLYAME.PAYMENT_MEASURE_UNIT_MM',
+		'112'  => 'DOLYAME.PAYMENT_MEASURE_UNIT_L',
+		'113'  => 'DOLYAME.PAYMENT_MEASURE_UNIT_M3',
+		'245'  => 'DOLYAME.PAYMENT_MEASURE_UNIT_KCH',
+		'233'  => 'DOLYAME.PAYMENT_MEASURE_UNIT_GKALL',
+		'359'  => 'DOLYAME.PAYMENT_MEASURE_UNIT_DAYS',
+		'356'  => 'DOLYAME.PAYMENT_MEASURE_UNIT_HOURS',
+		'355'  => 'DOLYAME.PAYMENT_MEASURE_UNIT_MINUTES',
+		'354'  => 'DOLYAME.PAYMENT_MEASURE_UNIT_SECONDS',
+		'256'  => 'DOLYAME.PAYMENT_MEASURE_UNIT_KBYTE',
+		'257'  => 'DOLYAME.PAYMENT_MEASURE_UNIT_MBYTE',
+		'2553' => 'DOLYAME.PAYMENT_MEASURE_UNIT_GBYTE',
+		'2554' => 'DOLYAME.PAYMENT_MEASURE_UNIT_TBYTE',
+	];
+
+	const UNKNOWN_TYPE='DOLYAME.PAYMENT_MEASURE_UNIT';
+
+	/**
+	 * @param string|null $measureCode
+	 * @return string
+	 */
+	public static function getStringValue( ? string $measureCode) : string
+	{
+		return self::$map[$measureCode] ?? self::UNKNOWN_TYPE;
+	}
+}

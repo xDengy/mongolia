@@ -1,0 +1,84 @@
+Bitrix\Sale\Result Object
+(
+    [id:protected] => 
+    [warnings:protected] => Bitrix\Main\ErrorCollection Object
+        (
+            [values:protected] => Array
+                (
+                )
+
+        )
+
+    [isSuccess:protected] => 1
+    [wereErrorsChecked:protected] => 
+    [object:protected] => 
+    [errors:protected] => Bitrix\Main\ErrorCollection Object
+        (
+            [values:protected] => Array
+                (
+                )
+
+        )
+
+    [data:protected] => Array
+        (
+        )
+
+)
+
+Bitrix\Sale\Result Object
+(
+    [id:protected] => 
+    [warnings:protected] => Bitrix\Main\ErrorCollection Object
+        (
+            [values:protected] => Array
+                (
+                )
+
+        )
+
+    [isSuccess:protected] => 1
+    [wereErrorsChecked:protected] => 
+    [object:protected] => 
+    [errors:protected] => Bitrix\Main\ErrorCollection Object
+        (
+            [values:protected] => Array
+                (
+                )
+
+        )
+
+    [data:protected] => Array
+        (
+        )
+
+)
+
+Bitrix\Sale\Result Object
+(
+    [id:protected] => 
+    [warnings:protected] => Bitrix\Main\ErrorCollection Object
+        (
+            [values:protected] => Array
+                (
+                )
+
+        )
+
+    [isSuccess:protected] => 1
+    [wereErrorsChecked:protected] => 
+    [object:protected] => 
+    [errors:protected] => Bitrix\Main\ErrorCollection Object
+        (
+            [values:protected] => Array
+                (
+                )
+
+        )
+
+    [data:protected] => Array
+        (
+        )
+
+)
+

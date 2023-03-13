@@ -1,0 +1,21 @@
+{
+    "name": "umax/allmongolia.ru",
+    "autoload": {
+        "psr-4": {
+            "ST\\" : "local/api/classes/ST",
+            "Simba\\" : "local/api/classes/Simba"
+        },
+        "files": [
+            "local/api/helpers/functions.php",
+            "local/api/helpers/config.php",
+            "local/api/helpers/functions.php"
+        ]
+    },
+    "require": {
+        "adbario/php-dot-notation": "^3.2",
+        "guzzlehttp/guzzle": "^7.0",
+        "hflabs/dadata": "^22.3",
+        "sanmai/cdek-sdk": "^0.7.5",
+        "ramsey/uuid": "^4.7"
+    }
+}
