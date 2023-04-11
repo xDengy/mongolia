@@ -3,6 +3,7 @@ const { VueLoaderPlugin } = require('vue-loader');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackMessages = require('webpack-messages');
 
+
 module.exports = {
     mode: 'development',
     devtool: 'source-map',

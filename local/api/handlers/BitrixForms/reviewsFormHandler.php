@@ -23,7 +23,7 @@ if (!empty($_POST['grecaptchaToken'])) {
                 "RATING" => $_POST["rating"],
                 "PHONE" => $_POST["PHONE"],
                 "ELEMID" => $_POST["element"],
-                "GROUPID" => $_POST["group"],
+                "SIZE" => $_POST["size"],
                 'FILES' => []
             );
             $file_array = array();

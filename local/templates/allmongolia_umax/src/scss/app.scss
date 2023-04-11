@@ -1,0 +1,80 @@
+// Fonts
+//@import "fonts";
+//@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+// Variables
+@import 'variables';
+
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+@import 'swiper/css/autoplay';
+@import 'swiper/css/effect-fade';
+@import 'swiper/css/scrollbar';
+
+@import "ion-rangeslider/css/ion.rangeSlider.min.css";
+
+@import 'preloader';
+@import 'vfm';
+
+//@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+//@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+//@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+//@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+
+//@import "vue-toastification/dist/index.css";
+
+.Vue-Toastification__container {
+  & .Vue-Toastification__toast--success {
+    background-color: #8a9b6e;
+  }
+
+  & .Vue-Toastification__toast--error {
+    background-color: #e08b8b;
+  }
+
+  & .Vue-Toastification__toast--warning {
+    background-color: #E2CD8E;
+  }
+
+  & .Vue-Toastification__toast--info {
+    background-color: #8ab8e0;
+  }
+}
+
+$vt-color-default: #1976d2 !default;
+$vt-text-color-default: #fff !default;
+$vt-color-info: #2196f3 !default;
+$vt-text-color-info: #fff !default;
+$vt-color-success: #4caf50 !default;
+$vt-text-color-success: #fff !default;
+$vt-color-warning: #ffc107 !default;
+$vt-text-color-warning: #fff !default;
+$vt-color-error: #ff5252 !default;
+$vt-text-color-error: #fff !default;
+
+.cart-products__card-number::-webkit-outer-spin-button,
+.cart-products__card-number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.cart-products__empty {
+  font-size: 2rem;
+  color: black;
+  margin-top: 20px;
+  text-align: center;
+}
+
+@import 'opt-input';
+
+.tippy-box[data-theme~='umax_allmongolia'] {
+  background-color: #ffffff;
+  color: black;
+  padding: 5px 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.tippy-box[data-theme~='umax_allmongolia'] > .tippy-arrow::before {
+  color: #8a9b6e;
+}

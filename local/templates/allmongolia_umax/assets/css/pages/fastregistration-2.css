@@ -1,0 +1,93 @@
+html {
+  font-size: calc(100vw / 1920 * 10);
+}
+
+.fastregistration-form-wrap {
+  max-width: 96.3rem;
+}
+.fastregistration-form__title {
+  margin-bottom: 4.8rem;
+}
+
+.fastregistration-form__subtitle {
+  margin-bottom: 0;
+}
+
+.fastregistration-form__subtitle p {
+  margin-bottom: 3rem;
+}
+.fastregistration-form__subtitle ul {
+  margin: 0;
+  padding: 0;
+}
+
+.fastregistration-form__subtitle li {
+  margin-bottom: 2rem;
+  list-style: none;
+  position: relative;
+  padding-left: 3.5rem;
+}
+.fastregistration-form__subtitle li::after {
+  position: absolute;
+  content: " ";
+  top: 1.5rem;
+  left: 1.2rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background-color: #000;
+}
+.fastregistration-form__subtitle li:last-child {
+  margin-bottom: 0;
+}
+
+.fastregistration-form__btn {
+  margin-top: 7.9rem;
+}
+
+@media (max-width: 1024px) {
+  html {
+    font-size: calc(100vw / 768 * 10);
+  }
+
+  .fastregistration-form-wrap {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 500px) {
+  html {
+    font-size: calc(100vw / 375 * 10);
+  }
+  .fastregistration-form__title {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    margin-bottom: 2.6rem;
+  }
+  .fastregistration-form__subtitle {
+    max-width: 31.6rem;
+    width: 100%;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    margin-bottom: 0;
+  }
+
+  .fastregistration-form__subtitle p {
+    margin-bottom: 1.5rem;
+  }
+  .fastregistration-form__subtitle li {
+    margin-bottom: 1rem;
+    padding-left: 2.3rem;
+  }
+  .fastregistration-form__subtitle li::after {
+    top: 1rem;
+    left: 1.1rem;
+  }
+
+  .fastregistration-form__btn {
+    margin-top: 6rem;
+    width: 100%;
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+  }
+}

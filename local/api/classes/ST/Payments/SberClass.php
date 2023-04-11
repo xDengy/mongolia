@@ -38,7 +38,7 @@ class SberClass {
                 'password' => $this->siteSettings["SBERBANK_PASSWORD"]["~VALUE"],
                 'orderNumber' => $payment->getOrderId() . "-x-" . rand(),
                 'description' => "Allmongolia | Номер заказа на сайте: {$payment->getOrderId()}",
-                'amount' => 100, //$payment->getSum() * 100,
+                'amount' => 100,//$payment->getSum() * 100,
                 'email' => $email,
                 'returnUrl' => $this->siteSettings["SBERBANK_RETURN_SUCCESS_URL"]["VALUE"]
                     . '?paysystem=sber&siteOrderId=' . $payment->getOrderId(),

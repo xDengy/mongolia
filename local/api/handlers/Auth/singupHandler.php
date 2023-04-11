@@ -15,7 +15,7 @@ if (!empty($_POST['grecaptchaToken'])) {
 
         $authClass = new AuthClass();
 
-        $result = $authClass->signUp($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['phone'], $_POST['password'], $_POST['passwordConfirm']);
+        $result = $authClass->signUp($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['phone'], $_POST['password'], $_POST['passwordConfirm'], $_POST['userId']);
 
         echo json_encode($result, JSON_UNESCAPED_UNICODE);
         exit();

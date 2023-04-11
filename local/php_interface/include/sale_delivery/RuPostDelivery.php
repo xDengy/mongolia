@@ -41,6 +41,11 @@ class RuPostDelivery extends \Bitrix\Sale\Delivery\Services\Base
                 'TITLE' => 'Основные',
                 'DESCRIPTION' => 'Основные настройки',
                 'ITEMS' => array(
+                    'TARIFF' => array(
+                        'TYPE' => 'STRING',
+                        'NAME' => 'Тариф доставки',
+                        'DEFAULT' => 4030
+                    ),
                     'FROM_ZIP' => array(
                         'TYPE' => 'STRING',
                         'NAME' => 'Индекс места отправления',
@@ -81,11 +86,11 @@ class RuPostDelivery extends \Bitrix\Sale\Delivery\Services\Base
 
         $res = $client->request('GET', '', [
             'query' => [
-                'object' => 4020,
+                'object' => $this->config['MAIN']['TARIFF'], //4020,
                 'from' => $this->config['MAIN']['FROM_ZIP'],
                 'to' => $propertyZipValue,
                 'weight' => $shipment->getWeight(),
-                'sumoc' => round(intval($order->getBasket()->getPrice())) * 100
+                // 'sumoc' => round(intval($order->getBasket()->getPrice())) * 100
             ]
         ]);
 
@@ -102,7 +107,7 @@ class RuPostDelivery extends \Bitrix\Sale\Delivery\Services\Base
 
         $res = $client->request('GET', '', [
             'query' => [
-                'object' => 4020,
+                'object' => $this->config['MAIN']['TARIFF'], //4020,
                 'from' => $this->config['MAIN']['FROM_ZIP'],
                 'to' => $propertyZipValue,
                 'weight' => $shipment->getWeight()
@@ -133,8 +138,8 @@ class RuPostDelivery extends \Bitrix\Sale\Delivery\Services\Base
             // Получение стоимости доставки
             $arResponse = $this->getDeliveryPrice($order, $shipment, $propertyZipValue);
 
-//            p($arResponse);
-//            exit();
+        //    p($arResponse);
+        //    exit();
 
 //            if (array_key_exists(0, $arResponse['postoffice']))
 //            {
@@ -164,13 +169,16 @@ class RuPostDelivery extends \Bitrix\Sale\Delivery\Services\Base
 
             $deliveryPrice = round($deliveryPrice / 100, 2);
 
+            // p($arResponse);
+            // exit();
+
             if (intval($this->config['MAIN']['MIN_DELIVERY_PRICE']) > 0 && (intval($deliveryPrice) < intval($this->config['MAIN']['MIN_DELIVERY_PRICE']))) {
                 $deliveryPrice = intval($this->config['MAIN']['MIN_DELIVERY_PRICE']);
             }
         }
 
-//        p($deliveryPrice);
-//        exit();
+    //    p($deliveryPrice);
+    //    exit();
 
         $result->setDeliveryPrice($deliveryPrice);
 

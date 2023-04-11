@@ -1,0 +1,353 @@
+html {
+  font-size: calc(100vw / 1920 * 10);
+}
+
+/* .main {
+  margin-top: 105px;
+} */
+.wrap {
+  padding: 0 5.2rem;
+}
+.entrance__title {
+  margin-top: 3.5rem;
+  font-weight: 700;
+  font-size: 4.9rem;
+  line-height: 6rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+
+  color: #000000;
+}
+
+.entrance {
+  margin-top: 10.3rem;
+}
+
+.entrance .wrap {
+  display: flex;
+}
+
+.entrance__registration {
+  max-width: 60.7rem;
+  width: 100%;
+  margin-right: 24.8rem;
+}
+
+.entrance__registration-title {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #000000;
+
+  margin-bottom: 5.4rem;
+}
+
+.entrance__registration-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 4rem;
+}
+.entrance__registration-item:last-of-type {
+  margin-bottom: 0;
+}
+
+.entrance__registration-item-icon {
+  margin-right: 3.2rem;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.entrance__registration-item-icon--1 svg {
+  width: 5rem;
+  height: 3.1rem;
+}
+.entrance__registration-item-icon--2 svg {
+  width: 4.8rem;
+  height: 4.5rem;
+}
+.entrance__registration-item-icon--3 svg {
+  width: 5rem;
+  height: 4.9rem;
+}
+.entrance__registration-item-text {
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+  letter-spacing: 0.03em;
+  color: #000000;
+}
+
+.entrance__registration-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0.2rem solid #000000;
+  padding: 1.7rem 6.6rem;
+  width: fit-content;
+  margin-top: 5rem;
+
+  font-weight: 600;
+  font-size: 2.1rem;
+  line-height: 2.6rem;
+  letter-spacing: 0.03em;
+  color: #000000;
+
+  cursor: pointer;
+  transition: 0.25s ease-in-out;
+}
+
+.entrance__registration-btn svg {
+  width: 1.3rem;
+  height: 1.6rem;
+  margin-left: 1.7rem;
+}
+
+.entrance__registration-btn svg path {
+  transition: 0.25s ease-in-out;
+}
+.entrance__registration-btn:hover svg path {
+  fill: #fff;
+}
+
+.entrance__registration-btn:hover {
+  border: 0.2rem solid #8a9b6e;
+  background: #8a9b6e;
+  color: #fff;
+}
+
+.entrance__form {
+  max-width: 49.4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.entrance__form-title {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #8a9b6e;
+  margin-bottom: 2.6rem;
+}
+
+.entrance__form-subtitle {
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+  letter-spacing: 0.03em;
+  color: #000000;
+
+  margin-bottom: 5.9rem;
+}
+
+.entrance__form input {
+  margin-bottom: 3.9rem;
+  border: 0;
+  border-bottom: 0.1rem solid #000000;
+  padding-bottom: 0.5rem;
+
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+  letter-spacing: 0.03em;
+  color: #838383;
+}
+.entrance__form input:last-of-type {
+  margin-bottom: 0;
+}
+
+.entrance__form-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 6.2rem;
+}
+
+.entrance__form-btn {
+  background: #8a9b6e;
+  padding: 1.9rem 5.7rem;
+  border: 0.2rem solid #8a9b6e;
+  margin-right: 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+  font-size: 2.1rem;
+  line-height: 2.6rem;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+
+  transition: 0.25s ease-in-out;
+  cursor: pointer;
+}
+
+.entrance__form-btn svg {
+  width: 1.3rem;
+  height: 1.6rem;
+  margin-left: 2.4rem;
+}
+
+.entrance__form-btn svg path {
+  transition: 0.25s ease-in-out;
+}
+
+.entrance__form-btn:hover svg path {
+  fill: #8a9b6e;
+}
+
+.entrance__form-btn:hover {
+  background: #ffffff;
+  color: #8a9b6e;
+}
+
+.entrance__form-link {
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.7rem;
+  letter-spacing: 0.03em;
+  color: #838383;
+
+  position: relative;
+  transition: 0.25s ease-in-out;
+}
+.entrance__form-link::after {
+  position: absolute;
+  content: "";
+  top: 100%;
+  left: 50%;
+  width: 0;
+  height: 0.05rem;
+  background: #8a9b6e;
+  transition: 0.25s ease-in-out;
+}
+.entrance__form-link:hover {
+  color: #8a9b6e;
+}
+.entrance__form-link:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+@media (max-width: 1024px) {
+  html {
+    font-size: calc(100vw / 768 * 10);
+  }
+  /* .main {
+    margin-top: 80px;
+  } */
+  .wrap {
+    padding: 0 3.2rem;
+  }
+  .entrance .wrap {
+    flex-direction: column;
+  }
+  .entrance__title {
+    font-size: 3.9rem;
+    line-height: 4rem;
+  }
+  .entrance {
+    margin-top: 8rem;
+  }
+  .entrance__registration {
+    margin-right: 0;
+    margin-bottom: 6rem;
+  }
+  .entrance__form {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  html {
+    font-size: calc(100vw / 375 * 10);
+  }
+  /* .main {
+    margin-top: 79px;
+  } */
+  .wrap {
+    padding: 0 2rem;
+  }
+  .entrance__title {
+    margin-top: 1.7rem;
+    font-size: 2.4rem;
+    line-height: 2.9rem;
+  }
+  .entrance {
+    margin-top: 4.2rem;
+  }
+  .entrance__registration-title {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    margin-bottom: 4.3rem;
+  }
+  .entrance__registration-item-icon {
+    margin-right: 2.4rem;
+  }
+  .entrance__registration-item-icon--1 svg {
+    width: 4rem;
+    height: 2.4rem;
+  }
+  .entrance__registration-item-icon--2 svg {
+    width: 3.9rem;
+    height: 3.7rem;
+  }
+  .entrance__registration-item-icon--3 svg {
+    width: 4.1rem;
+    height: 4.1rem;
+  }
+  .entrance__registration-item-text {
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+  }
+  .entrance__registration-item {
+    margin-bottom: 3.3rem;
+  }
+  .entrance__registration-btn {
+    width: 100%;
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+  }
+  .entrance__registration {
+    margin-bottom: 4rem;
+  }
+  .entrance__form-title {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    margin-bottom: 1.4rem;
+  }
+  .entrance__form-subtitle {
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+    margin-bottom: 4.3rem;
+  }
+  .entrance__form input {
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+    padding-bottom: 1rem;
+    margin-bottom: 3rem;
+  }
+  .entrance__form-bottom {
+    flex-direction: column;
+    margin-top: 3.4rem;
+  }
+  .entrance__form-btn {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1.8rem;
+
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+  }
+  .entrance__form-link {
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+  }
+}

@@ -164,10 +164,8 @@ class umaxOrderClass extends \CBitrixComponent
 
             $this->setOrderProps();
 
-            $discountManager = new Sale\DiscountCouponsManager();
-
-            $discountManager->init(
-                $discountManager->MODE_ORDER, [
+            Sale\DiscountCouponsManager::init(
+                Sale\DiscountCouponsManager::MODE_ORDER, [
                     "userId" => $this->order->getUserId(),
                     "orderId" => $this->order->getId()
                 ]
@@ -793,8 +791,11 @@ class umaxOrderClass extends \CBitrixComponent
                     $payment_link = $res->getPaymentUrl();
                 }
 
+                // p([$online_pay, $payment_link]);
+                // exit();
+
                 // Если использовался сценарий без онлайн оплаты
-                if (strlen(trim($payment_link)) <= 0 && !$online_pay)
+                if (strlen(trim($payment_link)) <= 0)
                 {
                     $success = true;
 
@@ -838,6 +839,8 @@ class umaxOrderClass extends \CBitrixComponent
                 'delivery_price'     => $order->getDeliveryPrice(),
                 'discount_list'      => $order->getDiscount()->getApplyResult(),
                 'discount_price'     => PriceMaths::roundPrecision($basket->getBasePrice() - $basket->getPrice()),
+                'discount_percent'   => PriceMaths::roundPrecision(($basket->getBasePrice() - $basket->getPrice()) / $basket->getBasePrice() * 100),
+                // <!-- ((160 – 150) / 160) х 100% -->
                 'basket_price'       => $basket->getPrice(),
                 'basket_weight'      => $basket->getWeight(),
                 'basket_items_count' => count($basket_items),

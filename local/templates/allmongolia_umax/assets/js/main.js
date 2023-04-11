@@ -52,7 +52,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     linkCategory.forEach((el, index) => {
         el.addEventListener("click", (e) => {
-            if(window.innerWidth <= 1024) {
+            if(window.innerWidth <= 1024 && !el.classList.contains('header__nav-link--news') && !el.classList.contains('header__nav-link--contact')) {
                 e.preventDefault();
                 el.classList.toggle("header__nav-link--active");
                 infoCategory[index].classList.toggle("header__nav-additionally--active");

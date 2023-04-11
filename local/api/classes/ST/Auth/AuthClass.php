@@ -33,7 +33,7 @@ class AuthClass {
         }
     }
 
-    public function signUp($firstname, $lastname, $email, $phone, $password, $passwordConfirm)
+    public function signUp($firstname, $lastname, $email, $phone, $password, $passwordConfirm, $userId)
     {
         \CModule::IncludeModule("main");
 
@@ -55,6 +55,10 @@ class AuthClass {
         $ID = $user->Add($arFields);
 
         if (intval($ID) > 0) {
+            if($userId !== '') {
+                \ST\Bonuses\Bonuses::addExpiredBonuses(intval($userId), 1000);
+            }
+
             return [
                 'success' => 1,
                 'userID' => $ID,

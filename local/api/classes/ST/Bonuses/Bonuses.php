@@ -5,6 +5,13 @@ use Bitrix\Main\Loader;
 
 class Bonuses
 {
+    static private $siteSettings = [];
+
+    public function __construct()
+    {
+        self::$siteSettings = getSiteSettings();
+    }
+
     // Подготовить класс HighLoad блока
     public static function getHighloadEntity()
     {
@@ -41,6 +48,20 @@ class Bonuses
         return $rsData;
     }
 
+    public static function addExpiredBonuses($userId, $value)
+    {
+        $fields = [
+            'UF_NAME' => $userId,
+            'UF_XML_ID' => $value,
+            'UF_DATE_CREATE' => date('d.m.Y H:M:S'),
+            'UF_EXPIRES' => 1
+        ];
+        $ob = self::getHighloadEntity();
+        $res = $ob::Add($fields);
+
+        self::addBonuses($userId, self::$siteSettings['EXPIRED_VALUE']['VALUE']);
+    }
+
     // Сумма баллов пользователя
     public static function getUserBonusesSum($userId)
     {
@@ -57,9 +78,9 @@ class Bonuses
     public static function getAllowedBonuses($userId, $orderPrice)
     {
         $curUser = \CSaleUserAccount::GetByUserID($userId, 'RUB');
-        $percentage = intval($curUser['NOTES']) > 0 ? intval($curUser['NOTES']) : 5;
+        $percentage = intval($curUser['NOTES']) > 0 ? intval($curUser['NOTES']) : self::$siteSettings['BONUSES_PERCENTAGE']['VALUE'];
         $bonuses = round(($percentage * intval($orderPrice)) / 100);
-        // $userBonuses = self::getUserBonusesSum($userId);
+        
         if($bonuses > $curUser['CURRENT_BUDGET']) {
             $bonuses = $curUser['CURRENT_BUDGET'];
         }
@@ -135,6 +156,18 @@ class Bonuses
     public static function addBonuses($userId, $bonuses, $orderId = 0)
     {
         $curUser = \CSaleUserAccount::GetByUserID($userId, 'RUB');
+
+        if(!$curUser) {
+            $fields = [
+                'USER_ID' => $userId,
+                'CURRENT_BUDGET' => 0,
+                'CURRENCY' => 'RUB',
+                'NOTES' => strval(self::$siteSettings['BONUSES_PERCENTAGE']['VALUE']),
+            ];
+            \CSaleUserAccount::Add($fields);
+
+            $curUser = \CSaleUserAccount::GetByUserID($userId, 'RUB');
+        }
 
         $curUser['CURRENT_BUDGET'] = '+' . $bonuses;
 
@@ -241,20 +274,52 @@ class Bonuses
             $order = [];
             $order = \CSaleOrder::GetByID($order_id);
         }
-
+        
         if ($status == 'NF' && $order['CANCELED'] == "N" && $order['PAYED'] == "Y")
         {
             // Начисляем бонусы
-            $bonuses = round(intval($order['PRICE'] - $order['PRICE_DELIVERY']) * 0.05);
+            $siteSettings = getSiteSettings();
 
+            $bonuses = round(intval($order['PRICE'] - $order['PRICE_DELIVERY']) * (intval($siteSettings['BONUSES_PERCENTAGE']['VALUE']) / 100));
+            
             $order = \Bitrix\Sale\Order::load($order_id);
             $propColl = $order->getPropertyCollection();
             $propertyValue = $propColl->getItemByOrderPropertyCode('BONUSES');
-            $isBonused = intval($propertyValue->getValue());
+            
+            $isBonused = 0;
+            if($propertyValue)
+                $isBonused = intval($propertyValue->getValue());
 
             if ($isBonused == 0)
             {
                 self::addBonuses($order->getUserId(), $bonuses, $order_id);
+            }
+
+            $orders = \CSaleOrder::GetList([], ['USER_ID' => $order->getUserId(), 'CANCELED' => 'N', 'PAYED' => 'Y']);
+            $sum = 0;
+            while($orderData = $orders->Fetch()) {
+                $sum += $orderData['PRICE'] - $orderData['PRICE_DELIVERY'];
+            }
+            $percentage = 1;
+            $max = 4;
+            for ($i = 1; $i <= $max; $i++) { 
+                if($sum < $siteSettings['PAYMENT_INT_TO_' . $i]['VALUE'] && $sum > $siteSettings['PAYMENT_INT_FROM_' . $i]['VALUE']) {
+                    $percentage = $i;
+                    break;
+                }
+            }
+            $percentageValue = $siteSettings['BONUSES_PAY_' . $percentage]['VALUE'];
+
+            $curUser = \CSaleUserAccount::GetByUserID($order->getUserId(), 'RUB');
+
+            if($curUser['NOTES'] !== strval($percentageValue)) {
+                $fields = [
+                    'USER_ID' => $order->getUserId(),
+                    'CURRENT_BUDGET' => $curUser['CURRENT_BUDGET'],
+                    'CURRENCY' => 'RUB',
+                    'NOTES' => strval($percentageValue),
+                ];
+                \CSaleUserAccount::Update($curUser['ID'], $fields);
             }
         }
     }
@@ -263,20 +328,19 @@ class Bonuses
     {
         $list = self::prepareList([], ['UF_EXPIRES' => 1]);
         while($el = $list->Fetch()) {
-
             if(strtotime($el['UF_DATE_CREATE'] . '+ 2 months') < strtotime(date('d.m.Y h:i:s'))) {
                 // Получение пользователя
                 $curUser = \CSaleUserAccount::GetByUserID($el['UF_NAME'], 'RUB');
 
-                $curUser['CURRENT_BUDGET'] = intval($curUser['CURRENT_BUDGET']) - $el['UF_XML_ID'];
+                $curUser['CURRENT_BUDGET'] = '-' . $el['UF_XML_ID'];
 
-                CSaleUserAccount::UpdateAccount(
-                    $userId,
+                \CSaleUserAccount::UpdateAccount(
+                    $el['UF_NAME'],
                     $curUser['CURRENT_BUDGET'],
                     $curUser['CURRENCY'],
                     '',
-                    $orderId,
                     $curUser['ORDER_ID'],
+                    $curUser['NOTES'],
                 );
 
                 $entity = self::getHighloadEntity();
@@ -285,6 +349,4 @@ class Bonuses
         }
         return "\\ST\\Bonuses\\Bonuses::checkBonuses();";
     }
-
-
 }

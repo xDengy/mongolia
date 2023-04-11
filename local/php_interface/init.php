@@ -42,7 +42,6 @@ function applyBonusesAfterPayFunc($orderId, $status)
     \ST\Bonuses\Bonuses::applyBonusesAfterPay($orderId, $status);
 }
 
-
 AddEventHandler("iblock", "OnAfterIBlockElementAdd", Array("GenLazyImages", "generate"));
 AddEventHandler("iblock", "OnAfterIBlockElementUpdate", Array("GenLazyImages", "generate"));
 class GenLazyImages
@@ -175,56 +174,85 @@ function CleanUpUpload() {
     return "CleanUpUpload();";
 }
 
-AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", Array("RatingSetter", "set"));
-AddEventHandler("iblock", "OnBeforeIBlockElementDelete", Array("RatingSetter", "delete"));
-class RatingSetter
-{
-    static function set(&$arFields)
-    {
-        if ($arFields['IBLOCK_ID'] == 5) {
-            $rsElem = CIBlockElement::GetByID($arFields['ID']);
-            $arProps = $rsElem->GetNextElement()->GetProperties();
-            $rsElem = CIBlockElement::GetByID($arFields['ID']);
-            if($arFields['ACTIVE'] == 'Y' && $rsElem->Fetch()['ACTIVE'] == 'N') {
-                $element = new CIBlockElement;
-                $el = CIBlockElement::GetList([], ['IBLOCK_ID' => 9, 'ID' => $arProps['ELEMID']['VALUE']], false, false, ['IBLOCK_ID', 'ID', 'PROPERTY_VOTE_COUNT', 'PROPERTY_RATING'])->Fetch();
+function getQuantityArray($sectionId, $iblockId, $filter) {
+    $filterAr = [
+        'IBLOCK_ID' => $iblockId, 
+        'ACTIVE' => 'Y'
+    ];
+    if($sectionId) {
+        $filterAr['SECTION_ID'] = $sectionId;
+    }
+    if($filter) {
+        $filterAr = array_merge($filterAr, $filter);
+    }
 
-                $props['VOTE_COUNT'] = intval($el['PROPERTY_VOTE_COUNT_VALUE']) + 1;
-                $props['RATING'] = intval($el['PROPERTY_RATING_VALUE']) + $arProps["RATING"]['VALUE'];
-
-                CIBlockElement::SetPropertyValuesEx($arProps['ELEMID']['VALUE'], 9, $props);
-            } else if($arFields['ACTIVE'] == 'N' && $rsElem->Fetch()['ACTIVE'] == 'Y') {
-                $element = new CIBlockElement;
-                $el = CIBlockElement::GetList([], ['IBLOCK_ID' => 9, 'ID' => $arProps['ELEMID']['VALUE']], false, false, ['IBLOCK_ID', 'ID', 'PROPERTY_VOTE_COUNT', 'PROPERTY_RATING'])->Fetch();
-
-                $props['VOTE_COUNT'] = intval($el['PROPERTY_VOTE_COUNT_VALUE']) - 1;
-                $props['RATING'] = intval($el['PROPERTY_RATING_VALUE']) - $arProps["RATING"]['VALUE'];
-
-
-                CIBlockElement::SetPropertyValuesEx($arProps['ELEMID']['VALUE'], 9, $props);
+    $quantityAr = [];
+    $ob_res = CIBlockElement::GetList([], $filterAr);
+    while($ob = $ob_res->Fetch()) {
+        $sku_res = CCatalogSKU::getOffersList($ob['ID'], $iblockId);
+        if(!empty($sku_res)) {
+            $quantityAr[$ob['ID']] = 0;
+            foreach ($sku_res[$ob['ID']] as $skuKey => $skuValue) {
+                $product = new \Simba\Catalog\Product($skuValue['ID']);
+                $quantity = $product->getQuantity();
+                
+                $quantityAr[$ob['ID']] += intval($quantity['QUANTITY']);
             }
+        } else {
+            $product = new \Simba\Catalog\Product($ob['ID']);
+            $quantity = $product->getQuantity();
+            $quantityAr[$ob['ID']] = intval($quantity['QUANTITY']);
         }
     }
-    static function delete(&$arFields)
-    {
-        $rsElem = CIBlockElement::GetByID($arFields);
-        if ($rsElem->Fetch()['IBLOCK_ID'] == 5) {
-            $rsElem = CIBlockElement::GetByID($arFields);
-            $arProps = $rsElem->GetNextElement()->GetProperties();
-            $rsElem = CIBlockElement::GetByID($arFields);
-
-            if($rsElem->Fetch()['ACTIVE'] == 'Y') {
-                $element = new CIBlockElement;
-                $el = CIBlockElement::GetList([], ['IBLOCK_ID' => 9, 'ID' => $arProps['ELEMID']['VALUE']], false, false, ['IBLOCK_ID', 'ID', 'PROPERTY_VOTE_COUNT', 'PROPERTY_RATING'])->Fetch();
-
-                $props['VOTE_COUNT'] = intval($el['PROPERTY_VOTE_COUNT_VALUE']) - 1;
-                $props['RATING'] = intval($el['PROPERTY_RATING_VALUE']) - $arProps["RATING"]['VALUE'];
-
-                CIBlockElement::SetPropertyValuesEx($arProps['ELEMID']['VALUE'], 9, $props);
-            }
-        }
-    }
+    arsort($quantityAr, SORT_NUMERIC);
+    $quantityAr = array_keys($quantityAr);
+    return $quantityAr;
 }
+
+// AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", Array("RatingSetter", "set"));
+// AddEventHandler("iblock", "OnBeforeIBlockElementDelete", Array("RatingSetter", "delete"));
+// class RatingSetter
+// {
+//     static function set(&$arFields)
+//     {
+//         if ($arFields['IBLOCK_ID'] == 5) {
+//             $rsElem = CIBlockElement::GetByID($arFields['ID']);
+//             $arProps = $rsElem->GetNextElement()->GetProperties();
+//             $rsElem = CIBlockElement::GetByID($arFields['ID']);
+//             $el = CIBlockElement::GetList([], ['IBLOCK_ID' => 16, 'ID' => $arProps['ELEMID']['VALUE']], false, false, ['IBLOCK_ID', 'ID', 'PROPERTY_VOTE_COUNT', 'PROPERTY_RATING'])->Fetch();
+
+//             if($arFields['ACTIVE'] == 'Y' && $rsElem->Fetch()['ACTIVE'] == 'N') {
+//                 $props['VOTE_COUNT'] = intval($el['PROPERTY_VOTE_COUNT_VALUE']) + 1;
+//                 $props['RATING'] = intval($el['PROPERTY_RATING_VALUE']) + $arProps["RATING"]['VALUE'];
+
+//                 CIBlockElement::SetPropertyValuesEx($arProps['ELEMID']['VALUE'], 16, $props);
+//             } else if($arFields['ACTIVE'] == 'N' && $rsElem->Fetch()['ACTIVE'] == 'Y') {
+//                 $props['VOTE_COUNT'] = intval($el['PROPERTY_VOTE_COUNT_VALUE']) - 1;
+//                 $props['RATING'] = intval($el['PROPERTY_RATING_VALUE']) - $arProps["RATING"]['VALUE'];
+
+//                 CIBlockElement::SetPropertyValuesEx($arProps['ELEMID']['VALUE'], 16, $props);
+//             }
+//         }
+//     }
+//     static function delete(&$arFields)
+//     {
+//         $rsElem = CIBlockElement::GetByID($arFields);
+//         if ($rsElem->Fetch()['IBLOCK_ID'] == 5) {
+//             $rsElem = CIBlockElement::GetByID($arFields);
+//             $arProps = $rsElem->GetNextElement()->GetProperties();
+//             $rsElem = CIBlockElement::GetByID($arFields);
+
+//             if($rsElem->Fetch()['ACTIVE'] == 'Y') {
+//                 $el = CIBlockElement::GetList([], ['IBLOCK_ID' => 16, 'ID' => $arProps['ELEMID']['VALUE']], false, false, ['IBLOCK_ID', 'ID', 'PROPERTY_VOTE_COUNT', 'PROPERTY_RATING'])->Fetch();
+
+//                 $props['VOTE_COUNT'] = intval($el['PROPERTY_VOTE_COUNT_VALUE']) - 1;
+//                 $props['RATING'] = intval($el['PROPERTY_RATING_VALUE']) - $arProps["RATING"]['VALUE'];
+
+//                 CIBlockElement::SetPropertyValuesEx($arProps['ELEMID']['VALUE'], 16, $props);
+//             }
+//         }
+//     }
+// }
 
 // AddEventHandler("sale", "OnSaleStatusOrder", ["\ST\Bonuses\Bonuses", "applyBonusesAfterPay"]);
 

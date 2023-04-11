@@ -1,0 +1,100 @@
+
+.catalog-content-pagination {
+    display: flex;
+    align-items: center;
+    margin: 7.7rem auto 0;
+    width: 100%;
+    justify-content: center;
+  }
+  
+.catalog-content-pagination__item-nav {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+    letter-spacing: 0.03em;
+    color: #838383;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+}
+.catalog-content-pagination__item-nav:hover {
+    color: #8a9b6e;
+}
+.catalog-content-pagination__item-nav svg path {
+    transition: 0.25s ease-in-out;
+}
+.catalog-content-pagination__item-nav:hover svg path {
+    fill: #8a9b6e;
+}
+.catalog-content-pagination__item-nav svg {
+margin-left: 1.6rem;
+width: 2rem;
+    height: 1.2rem;
+}
+.catalog-content-pagination__item-nav--prev svg {
+    margin-right: 1.6rem;
+    margin-left: 0;
+}
+
+.catalog-content-pagination__item-wrap {
+    margin: 0 6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.catalog-content-pagination__item {
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #838383;
+    width: 3.7rem;
+    height: 3.7rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #8a9b6e00;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+}
+
+.catalog-content-pagination__item.disable {
+    cursor: default;
+}
+
+.catalog-content-pagination__item.active {
+    font-weight: 700;
+    color: #000000;
+    border: 1px solid #8a9b6e;
+}
+.catalog-content-pagination__item:hover {
+    font-weight: 700;
+    color: #000000;
+    border: 1px solid #8a9b6e;
+}
+
+@media(max-width: 500px) {
+  .catalog-content-pagination {
+    margin: 4rem auto 0;
+  }
+  .catalog-content-pagination__item-wrap {
+    margin: 0 1.4rem;
+  }
+  .catalog-content-pagination__item {
+    width: 3.6rem;
+    height: 3.7rem;
+  }
+  .catalog-content-pagination__item-nav svg {
+    margin-left: 0.9rem;
+    width: 1.8rem;
+    height: 1.2rem;
+  }
+  .catalog-content-pagination__item-nav--prev svg {
+    margin-right: 0.9rem;
+    margin-left: 0;
+  }
+}

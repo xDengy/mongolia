@@ -163,7 +163,7 @@ class BasketController
             exit();
         }
 
-        if($quantity['QUANTITY'] > 0 && $array['quantity'] > 0 && (($array['from_list'] == 'Y' && $array['quantity'] < $quantity['QUANTITY']) || $array['from_list'] !== 'Y')) {
+        if($quantity['QUANTITY'] > 0 && $array['quantity'] > 0 && (($array['from_list'] == 'Y' && $array['quantity'] <= $quantity['QUANTITY']) || $array['from_list'] !== 'Y')) {
 
             $id = Add2BasketByProductID(
                 $product_id,
@@ -174,7 +174,6 @@ class BasketController
 //                    'PRICE' => $ar_res['PRICE']
                 )
             );
-
             if(!$id) {
               CModule::IncludeModule("iblock");
 
@@ -200,8 +199,6 @@ class BasketController
               ]);
               $basket->save();
             }
-
-
 
             if($array['delayed'] === true) {
                 CSaleBasket::Update($id, ["DELAY" => "Y"]);

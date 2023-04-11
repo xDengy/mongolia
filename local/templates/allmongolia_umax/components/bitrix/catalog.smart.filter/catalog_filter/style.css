@@ -1,0 +1,118 @@
+:root {
+	--primary: #006cc0;
+	--theme-color-primary: #006cc0;
+	--theme-color-second: #0083d1;
+	--theme-color-light: #499fd8;
+}
+
+.smart-filter-slider-track-container {
+	overflow: hidden;
+	padding: 25px 18px 25px;
+}
+
+.smart-filter-slider-track {
+	position: relative;
+	height: 2px;
+	background: #e7e7e7;
+}
+
+.smart-filter-slider-ruler {
+	position: absolute;
+	top: -6px;
+	width: 1px;
+	height: 17px;
+	background: #a2bfc7;
+}
+
+.smart-filter-slider-ruler.p1 { left: -1px; }
+
+.smart-filter-slider-ruler.p2 { left: 25%; }
+
+.smart-filter-slider-ruler.p3 { left: 50%; }
+
+.smart-filter-slider-ruler.p4 { left: 75%; }
+
+.smart-filter-slider-ruler.p5 { right: -1px; }
+
+.smart-filter-slider-ruler span {
+	position: absolute;
+	top: -16px;
+	left: 50%;
+	display: block;
+	margin-left: -50px;
+	width: 100px;
+	color: #000;
+	text-align: center;
+	font-size: 11px;
+}
+
+.smart-filter-slider-ruler.p2 span,
+.smart-filter-slider-ruler.p3 span,
+.smart-filter-slider-ruler.p4 span { color: #6b8086; }
+
+.smart-filter-slider-range { z-index: 50; }
+
+.smart-filter-slider-range,
+.smart-filter-slider-price-bar,
+.smart-filter-slider-price-bar-vd,
+.smart-filter-slider-price-bar-vn,
+.smart-filter-slider-price-bar-v {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+}
+
+.smart-filter-slider-price-bar { z-index: 100; }
+
+.smart-filter-slider-price-bar-vd {
+}
+
+.smart-filter-slider-price-bar-vn {
+	z-index: 70;
+	background-color: #e1e4e9; }
+
+.smart-filter-slider-price-bar-v {
+	z-index: 80;
+	background-color: #000;
+}
+
+.smart-filter-slider-handle {
+	position: absolute;
+    top: -5px;
+    width: 1.3rem;
+    height: 1.3rem;
+    background: #000000;
+    /*transition: ease-in-out 0.25s;*/
+    cursor: grab;
+    margin: 0;
+    border: none;
+}
+
+.smart-filter-slider-handle:hover {
+	cursor: grab;
+	-webkit-cursor: grab;
+	-ms-cursor: grab;
+	-o-cursor: grab;
+}
+
+.smart-filter-slider-handle:active {
+	cursor: grabbing;
+	-webkit-cursor: grabbing;
+	-ms-cursor: grabbing;
+	-o-cursor: grabbing;
+}
+
+.smart-filter-slider-handle.left {
+	left: 0;
+}
+
+.smart-filter-slider-handle.right {
+	right: 0;
+}
+
+#set_filter {
+	display: none;
+}
+.smart-filter-popup-result .modef_num-wrapper {
+	display: none;
+}

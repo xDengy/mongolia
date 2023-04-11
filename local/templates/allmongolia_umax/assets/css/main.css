@@ -15,6 +15,10 @@
   --baseFontSize: 1.4rem;
 }
 
+.grecaptcha-badge {
+  z-index: 2;
+}
+
 html {
   font-size: calc(100vw / 1920 * 10);
 }
@@ -220,7 +224,9 @@ body {
   height: 3.2rem;
 }
 
-.logo svg path {
+.logo svg path,
+.logo svg g path,
+.logo svg g text {
   fill: currentColor;
 }
 
@@ -443,7 +449,9 @@ body {
   background-color: var(--whiteColor);
 }
 
-.header--sticky .logo svg path {
+.header--sticky .logo svg path,
+.header--sticky .logo g path,
+.header--sticky .logo svg g text {
   fill: var(--blackColor);
 }
 
@@ -528,7 +536,7 @@ body {
     fill: var(--greenColor);
   }
 
-  .header__nav-list
+  /* .header__nav-list
     li:hover
     .header__nav-additionally
     .header__list-category
@@ -541,7 +549,7 @@ body {
     color: var(--blackColor);
     opacity: 0.7;
     margin-bottom: 1rem;
-  }
+  } */
 
   .header__nav-list
     li:hover
@@ -787,7 +795,8 @@ body {
   border-top: 0.1rem solid #dadada;
 }
 
-.footer__bottom .logo svg path {
+.footer__bottom .logo svg path,
+.footer__bottom .logo svg g path {
   fill: var(--blackColor);
 }
 
@@ -921,6 +930,11 @@ body {
     font-size: calc(100vw / 768 * 10);
   }
 
+  .smart-filter-input-group-checkbox-list, .catalog-nav__item.accordion-catalog .catalog-nav__item.accordion-catalog {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
   .modal-table-sizes {
     padding: 4rem;
   }
@@ -997,7 +1011,7 @@ body {
     align-items: unset;
   }
 
-  .header .header__menu-list a span {
+  .header .header__menu-list a span, .header .header__menu-list .header__menu-link span {
     display: none;
   }
 
@@ -1005,7 +1019,8 @@ body {
     color: var(--blackColor);
   }
 
-  .header--active .logo svg path {
+  .header--active .logo svg path,
+  .header--active .logo svg g path {
     fill: var(--blackColor);
   }
 
@@ -1087,7 +1102,17 @@ body {
     padding-left: 1rem;
   }
 
-  .header__list-category li:first-child {
+  .novinki .header__list-category-link {
+    padding-left: unset;
+    font-size: 1.6rem;
+  }
+
+  .novinki .header__list-category-link:hover,
+  .novinki .header__list-category-link:active {
+    color: #8a9b6e;
+  }
+
+  /* .header__list-category li:first-child {
     font-weight: 600;
     font-size: 1.2rem;
     line-height: 200%;
@@ -1098,9 +1123,9 @@ body {
     padding: 0.8rem 1rem 0.8rem 1rem;
     background: rgba(0, 0, 0, 0.05);
     border-radius: 0.3rem;
-  }
+  } */
 
-  .header .header__menu a {
+  .header .header__menu a, .header .header__menu .header__menu-link {
     width: 2rem;
     height: 2rem;
   }
@@ -1331,7 +1356,7 @@ body {
 
   .header .logo svg {
     width: 15rem;
-    height: 1.6rem;
+    /* height: 1.6rem; */
   }
 
   .header {

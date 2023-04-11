@@ -1,0 +1,103 @@
+.personal {
+    justify-content: center;
+}
+
+.bonuses-block {
+    font-size: 2rem;
+}
+
+.ta-c {
+    text-align: center;
+}
+
+.p-2 {
+    padding: 0 4rem;
+    max-width: 800px;
+}
+
+.h2 {
+    font-size: 4rem;
+}
+
+.h2-bold, .bonuses-equal {
+    font-weight: bold;
+}
+
+.description {
+    margin-top: 2rem;
+}
+
+.bonuses-equal {
+    margin: 2rem 0 4rem;
+}
+
+.level {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #000;
+    padding: 2.5rem;
+}
+
+.level-wrapper .level:last-child {
+    border-bottom: 1px solid #000;
+}
+
+.level-name {
+    font-weight: bold;
+}
+
+.level-info {
+    font-size: 1.4rem;
+    font-style: italic;
+}
+
+.level-right.level-name {
+    font-style: italic;
+}
+
+.level-left .level-name {
+    margin-bottom: 0.5rem;
+}
+
+.list-wrapper {
+    margin-top: 4rem;
+    font-size: 1.6rem;
+}
+
+.list-wrapper ul li {
+    list-style-type: disc;
+    margin-bottom: 1.4rem;
+    line-height: 1.6rem;
+}
+
+.list-wrapper li small {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+@media(max-width: 500px) {
+    .p-2 {
+        padding: 0;
+    }
+
+    .list-wrapper {
+        padding: 0 0 0 2rem;
+    }
+
+    .level {
+        padding: 1.5rem 1rem;
+    }
+
+    .description {
+        line-height: 3rem;
+    }
+
+    .h2-normal {
+        line-height: 4rem;
+    }
+
+    .level-right {
+        text-align: right;
+    }
+}

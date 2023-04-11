@@ -1,0 +1,321 @@
+html {
+  font-size: calc(100vw / 1920 * 10);
+}
+
+/* .main {
+  margin-top: 105px;
+} */
+
+.wrap {
+  padding: 0 5.2rem;
+}
+
+.return {
+  position: relative;
+  padding-top: 4.4rem;
+}
+
+.return__decor {
+  position: absolute;
+  top: -6rem;
+  right: 0;
+  z-index: 0;
+
+  width: 112.5rem;
+  height: 68.7rem;
+}
+
+.return .wrap {
+  z-index: 1;
+  position: relative;
+}
+
+.return__title {
+  font-weight: 700;
+  font-size: 4.9rem;
+  line-height: 6rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #000000;
+  margin-top: 3.5rem;
+}
+
+.return__subtitle {
+  max-width: 65rem;
+  width: 100%;
+  margin-bottom: 4.4rem;
+
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 4.9rem;
+  text-transform: uppercase;
+  color: #333333;
+}
+
+.return__text {
+  max-width: 113.3rem;
+  width: 100%;
+  margin-bottom: 6.4rem;
+
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 3.3rem;
+  color: #333333;
+}
+
+.return__text--long {
+  max-width: 138.6rem;
+  width: 100%;
+}
+
+.return__text:last-child {
+  margin-bottom: 0;
+}
+
+.return__text ul {
+  margin: 3rem 0;
+  padding-left: 3rem;
+}
+
+.return__text i {
+  font-weight: 300;
+}
+
+.return__text b {
+  font-weight: 700;
+}
+
+.return__text h3 {
+  margin-bottom: 1.2rem;
+}
+
+.return__text p {
+  margin-bottom: 2.5rem;
+}
+.return__text--lite p {
+  font-weight: 400;
+}
+.return__text p:last-of-type {
+  margin-bottom: 0;
+}
+
+.return__card-wrap {
+  padding: 0 5.2rem;
+  margin-top: 7.2rem;
+}
+
+.return__card {
+  padding: 3rem 2.2rem 6.4rem;
+  background: #f5f5f5;
+  max-width: 151.4rem;
+  width: 100%;
+}
+
+.return__card-title {
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 4.9rem;
+  text-transform: uppercase;
+  color: #333333;
+
+  margin-bottom: 1.8rem;
+}
+
+.return__card-text {
+  max-width: 108.1rem;
+  width: 100%;
+
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 3.3rem;
+  color: #333333;
+}
+
+.payment__cards {
+  padding: 0 5.5rem;
+  margin-top: 7.2rem;
+  margin-bottom: 6.4rem;
+}
+
+.payment__cards-title {
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 4.9rem;
+  text-transform: uppercase;
+  color: #333333;
+
+  margin-bottom: 3.8rem;
+}
+
+.payment__cards-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5.3rem;
+  margin-bottom: -2.2rem;
+}
+
+.payment__card {
+  max-width: 45.3rem;
+  width: 100%;
+  padding: 4.8rem 4.7rem 2.7rem;
+  height: auto;
+  margin-left: 5.3rem;
+  margin-bottom: 2.2rem;
+  background: #f5f5f5;
+}
+.payment__card-icon {
+  margin-bottom: 3.5rem;
+}
+.payment__card-icon svg {
+  width: 13.2rem;
+  height: 9.2rem;
+}
+.payment__card-title {
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 3.3rem;
+  color: #333333;
+
+  margin-bottom: 1.2rem;
+}
+.payment__card-text {
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 3.3rem;
+  color: #333333;
+}
+.payment__card-imgs {
+  display: flex;
+  gap: 2.8rem;
+}
+.payment__card-img {
+  max-width: 6.2rem;
+  max-height: 3.5rem;
+}
+.payment__card-img img {
+  object-fit: contain;
+}
+@media (max-width: 1024px) {
+  html {
+    font-size: calc(100vw / 768 * 10);
+  }
+
+  /* .main {
+    margin-top: 80px;
+  } */
+
+  .wrap {
+    padding: 0 3.2rem;
+  }
+
+  .return__decor {
+    top: -3rem;
+    right: 3.2rem;
+    /* width: 36.3rem; */
+    width: 100vw;
+    height: 40rem;
+  }
+
+  .return {
+    padding-top: 40rem;
+  }
+
+  .return__card-wrap {
+    padding: 0 3.2rem;
+  }
+  .payment__cards {
+    padding: 0 3.2rem;
+  }
+}
+@media (max-width: 500px) {
+  html {
+    font-size: calc(100vw / 375 * 10);
+  }
+  /* .main {
+    margin-top: 79px;
+  } */
+  .wrap {
+    padding: 0 2rem;
+  }
+  .return__decor {
+    top: -2rem;
+    right: 0;
+    /* width: 36.3rem; */
+    width: 100vw;
+    height: 30rem;
+  }
+  .return {
+    padding-top: 26rem;
+  }
+  .return__title {
+    font-size: 2.4rem;
+    line-height: 2.9rem;
+    margin-top: 1.7rem;
+  }
+  .return__subtitle {
+    font-size: 2rem;
+    line-height: 3.3rem;
+    margin-bottom: 4rem;
+  }
+  .return__text {
+    font-size: 1.4rem;
+    line-height: 2.3rem;
+    margin-bottom: 3.2rem;
+  }
+
+  .return__text h3 {
+    font-size: 1.4rem;
+    line-height: 2.3rem;
+    margin-bottom: 2.2rem;
+  }
+
+  .return__card-wrap {
+    padding: 0;
+    margin-top: 4rem;
+  }
+  .return__card {
+    padding: 2.6rem 2.5rem 5.8rem;
+  }
+  .return__card-title {
+    font-size: 2rem;
+    line-height: 3.3rem;
+    margin-bottom: 2.2rem;
+  }
+  .return__card-text {
+    font-size: 1.4rem;
+    line-height: 2.3rem;
+  }
+
+  .payment__cards {
+    padding: 0;
+    margin: 4rem 0;
+  }
+  .payment__cards-title {
+    padding: 0 2rem;
+    font-size: 2rem;
+    line-height: 3.3rem;
+    margin-bottom: 1.7rem;
+  }
+  .payment__card {
+    padding: 3.9rem 2.5rem 4.5rem;
+  }
+  .payment__card-icon svg {
+    width: 7.3rem;
+    height: 5.1rem;
+  }
+  .payment__card-title {
+    font-size: 1.4rem;
+    line-height: 2.3rem;
+  }
+  .payment__card-text {
+    font-size: 1.4rem;
+    line-height: 2.3rem;
+  }
+  .payment__card-imgs {
+    margin-top: 1.2rem;
+  }
+  .payment__card-img {
+    max-width: 6.9rem;
+    height: 3.9rem;
+  }
+}

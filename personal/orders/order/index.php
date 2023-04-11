@@ -12,16 +12,17 @@ if(!$USER->GetId()) {
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/assets/css/pages/fastregistration.css");
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/assets/css/pages/personal.css");
 
-    $fuserID = Fuser::getId();
-
     $order = \Bitrix\Sale\Order::GetList([
         'filter' => [
             'ID' => $_GET['order_id'],
-            'USER_ID' => $fuserID
+            'USER_ID' => $USER->GetId()
         ],
     ])->Fetch();
 
     if($order) {
+        $APPLICATION->SetPageProperty("title", "Заказ №" .  $_GET['order_id']);
+        $APPLICATION->SetTitle("Заказ №" .  $_GET['order_id']);
+        
         $order['QUANTITY'] = CSaleBasket::GetList(
             array(),array('ORDER_ID' => $order['ID']),
             false, false,
@@ -38,7 +39,11 @@ if(!$USER->GetId()) {
             false, false,
             array('*')
         );
+        $discount = 0;
         while($item = $items->Fetch()) {
+            if($item['DISCOUNT_PRICE'] > 0) {
+                $discount += $item['DISCOUNT_PRICE'];
+            }
             $prodData = CIBlockElement::GetByID($item['PRODUCT_ID']);
             $product = [];
             while($prod = $prodData->GetNextElement()) {
@@ -134,6 +139,20 @@ if(!$USER->GetId()) {
                         <td class="text-right"><b>Доставка</b></td>
                         <td class="text-right"><?=number_format($order['PRICE_DELIVERY'], 0, '', ' ')?>р.</td>
                     </tr>
+                    <?if($order['ORDER_PROPS']['BONUSES']['VALUE']):?>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td class="text-right"><b>Списано баллами</b></td>
+                            <td class="text-right"><?=number_format($order['ORDER_PROPS']['BONUSES']['VALUE'], 0, '', ' ')?>р.</td>
+                        </tr>
+                    <?endif?>
+                    <?if($discount > 0):?>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td class="text-right"><b>Скидка</b></td>
+                            <td class="text-right"><?=number_format($discount, 0, '', ' ')?>р.</td>
+                        </tr>
+                    <?endif?>
                     <tr>
                         <td colspan="2"></td>
                         <td class="text-right"><b>Итого</b></td>
@@ -182,14 +201,20 @@ if(!$USER->GetId()) {
             <?
             $orderLoaded = \Bitrix\Sale\Order::load($_GET['order_id']);
             $payment_link = Payment::initializePayment($orderLoaded);
-
-            if($order['STATUS_ID'] == 'N' && $order['PAY_SYSTEM_ID'] !== 1 && strlen($payment_link) > 0):
+            
+            if (
+                $order['STATUS_ID'] == 'N' &&
+                $order['PAY_SYSTEM_ID'] !== 1 &&
+                $order['PAY_SYSTEM_ID'] !== 4 &&
+                $order['PAY_SYSTEM_ID'] !== 6 &&
+                strlen($payment_link) > 0
+            ) {
 
             ?>
                 <div class="pay">
                     <a href="<?= $payment_link ?>">Оплатить</a>
                 </div>
-            <?endif?>
+            <? } ?>
         </div>
     </div>
 <? } ?>

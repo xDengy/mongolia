@@ -1,0 +1,326 @@
+@import "../assets/css/main.css";
+
+html {
+  font-size: calc(100vw / 1920 * 10);
+}
+
+.header {
+  color: var(--blackColor);
+}
+
+.main {
+  position: relative;
+  color: var(--darkGray);
+  /* margin-top: 10.7rem; */
+  overflow-x: hidden;
+}
+
+.main .breadcrumb__link,
+.main .breadcrumb__page {
+  color: var(--darkGray);
+}
+
+.breadcrumb li:not(:last-child)::after {
+  color: #000000;
+}
+
+.main .title {
+  margin-top: 3.3rem;
+}
+
+.main__img {
+  position: absolute;
+  top: 2rem;
+  right: 0rem;
+  z-index: -1;
+  width: 120.2rem;
+  height: 65.6rem;
+}
+
+.main__img img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.delivery .subtitle {
+  margin-top: 5.2rem;
+  color: var(--darkGray);
+}
+
+.delivery__description {
+  margin-top: 1rem;
+  max-width: 63.1rem;
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 3.3rem;
+}
+
+.delivery__info {
+  margin: 4.7rem 0 8.1rem 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5.5rem;
+}
+
+.delivery__contact {
+  padding: 1.5rem 5.2rem 2.7rem 4.7rem;
+  border: 0.1rem solid #000000;
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.delivery__contact ul {
+  margin-top: 3rem;
+  margin-left: 6.1rem;
+  list-style: disc !important;
+}
+
+.delivery__contact ul li {
+  list-style: disc;
+}
+
+.delivery__phone {
+  color: var(--greenColor);
+}
+
+.delivery__price {
+  position: relative;
+  font-size: 2rem;
+  line-height: 3rem;
+  bottom: -3.3rem;
+}
+
+.delivery__price-title {
+  font-weight: 700;
+}
+
+.delivery__price-text {
+  margin-top: 2.4rem;
+  font-weight: 500;
+}
+
+.delivery__payment {
+  margin-top: 6rem;
+}
+
+.delivery__payment-title {
+  font-weight: 700;
+  font-size: 2.3rem;
+  margin-bottom: 2rem;
+}
+
+.delivery__payment .text {
+  max-width: 87.6rem;
+}
+
+.courier {
+  margin: 6.5rem 0 0 0;
+}
+
+.courier__top {
+  display: flex;
+  flex-direction: row;
+  gap: 16.7rem;
+  padding: 2rem 0;
+  margin-bottom: 3.6rem;
+  align-items: center;
+  border-bottom: 0.1rem solid #838383;
+}
+
+.courier__title {
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 2.4rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.courier__logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16.7rem;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 2.1rem;
+  max-width: 95rem;
+  font-weight: 500;
+  font-size: 2rem;
+}
+
+.text p {
+  line-height: 3rem;
+}
+
+.text ul {
+  margin-left: 4rem;
+  line-height: 3rem;
+}
+
+.text ul li {
+  list-style: disc;
+}
+
+@media (max-width: 1024px) {
+  html {
+    font-size: calc(100vw / 768 * 10);
+  }
+
+  /* .main {
+    margin-top: 6.7rem;
+  } */
+
+  .main__img {
+    width: 60.1rem;
+    height: 31rem;
+    top: 4rem;
+    right: 14rem;
+  }
+
+  .delivery .subtitle {
+    margin-top: 30.2rem;
+  }
+
+  .delivery__info {
+    flex-direction: column;
+  }
+
+  .delivery__price {
+    bottom: 0;
+  }
+
+  .delivery__contact {
+    padding: 1.5rem 5.2rem 2.7rem 2rem;
+  }
+
+  .courier__top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.9rem;
+  }
+}
+
+@media (max-width: 767px) {
+  html {
+    font-size: calc(100vw / 500 * 10);
+  }
+
+  .wrapper {
+    padding: 0 2rem 0 2rem;
+  }
+
+  .main__img {
+    right: 0rem;
+  }
+
+  .delivery__price {
+    position: static;
+  }
+}
+
+@media (max-width: 376px) {
+  html {
+    font-size: calc(100vw / 370 * 10);
+  }
+
+  /* .main {
+    margin-top: 7.9rem;
+  } */
+
+  .main__img {
+    top: 0rem;
+    right: -8rem;
+  }
+
+  .main .title {
+    font-size: 2.5rem;
+    margin-top: 1.6rem;
+  }
+
+  .delivery {
+    margin-top: 0;
+  }
+
+  .delivery .subtitle {
+    margin-top: 24.6rem;
+    font-size: 1.8rem;
+  }
+
+  .delivery__description {
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+  }
+
+  .delivery__info {
+    margin: 2.3rem 0 3rem 0;
+    gap: 3.8rem;
+  }
+
+  .delivery__contact {
+    padding: 1.9rem 5rem 3.4rem 2.1rem;
+    font-size: 1.8rem;
+  }
+
+  .delivery__contact ul {
+    margin-top: 2.7rem;
+    margin-left: 2.7rem;
+    margin-right: 0;
+  }
+
+  .delivery__price-title {
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+  }
+
+  .delivery__price-text {
+    margin-top: 1.4rem;
+    font-weight: 500;
+    line-height: 2.2rem;
+  }
+
+  .delivery__payment {
+    margin-top: 2.5rem;
+  }
+
+  .text p {
+    line-height: 2rem;
+  }
+
+  .text ul {
+    margin-left: 2rem;
+    line-height: 2rem;
+  }
+
+  .courier {
+    margin: 3rem 0 0 0;
+  }
+
+  .courier__logo {
+    gap: 2rem;
+  }
+
+  .courier__top {
+    gap: 1.4rem;
+    margin-bottom: 2rem;
+    padding-top: 1.4rem;
+  }
+
+  .delivery__price-text,
+  .text,
+  .delivery__payment-title {
+    font-size: 1.4rem;
+  }
+
+  .courier__title {
+    font-size: 1.8rem;
+  }
+
+  .courier__logo img {
+    height: 22px;
+  }
+}

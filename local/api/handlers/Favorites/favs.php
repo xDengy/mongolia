@@ -1,16 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Maxim Masalov
- * Date: 08.08.2019
- * Time: 12:03
- */
 
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
 class FavoritesController
 {
-    
+
     public function __construct($action, $answer)
     {
         if (method_exists($this, $action)) {
@@ -20,26 +14,34 @@ class FavoritesController
         return false;
     }
 
-    // Проверить наличие товара в избранном
-    public function inFavs($data) {
+    public function prepareHighLoad()
+    {
         $hlblock = \Bitrix\Highloadblock\HighloadBlockTable::getById(6)->fetch();
         $entity = \Bitrix\Highloadblock\HighloadBlockTable::compileEntity($hlblock);
-        $entityDataClass = $entity->getDataClass();
-        $ob_res[$data['product_id']] = $entityDataClass::getList(array(
+        $entityDataClass = $entity->getDataClass();   
+        return $entityDataClass;     
+    }
+
+    // Проверить наличие товара в избранном
+    public function inFavs($data) {
+        $entityDataClass = self::prepareHighLoad();
+
+        $res = $entityDataClass::getList(array(
             "select" => array("*"),
-            'filter' => ['UF_NAME' => $data['userId'], 'UF_XML_ID' => $data['product_id']]
-        ))->Fetch();
+            'filter' => ['UF_NAME' => $data['userId']]
+        ));
+        while($elem = $res->Fetch()) {
+            $ob_res[$elem['UF_XML_ID']] = $elem;
+        }
 
         echo json_encode($ob_res);
     }
 
     // Добавить в избранное
     public function setFavs($data) {
-        $hlblock = \Bitrix\Highloadblock\HighloadBlockTable::getById(6)->fetch();
-        $entity = \Bitrix\Highloadblock\HighloadBlockTable::compileEntity($hlblock);
-        $entityDataClass = $entity->getDataClass();
+        $entityDataClass = self::prepareHighLoad();
 
-        if($data['checked'] == true) {
+        if($data['checked'] == true || $data['checked'] == 1) {
             $result = $entityDataClass::add(array(
                 'UF_NAME' => $data['userId'],
                 'UF_XML_ID' => $data['product_id'],
@@ -57,39 +59,63 @@ class FavoritesController
 
     // Получить избранные товары
     public function getFavs($data) {
-        $hlblock = \Bitrix\Highloadblock\HighloadBlockTable::getById(6)->fetch();
-        $entity = \Bitrix\Highloadblock\HighloadBlockTable::compileEntity($hlblock);
-        $entityDataClass = $entity->getDataClass();
+        $entityDataClass = self::prepareHighLoad();
+
         $prods = $entityDataClass::getList(array(
             "select" => array("*"),
             'filter' => ['UF_NAME' => $data['userId']]
         ));
         $ob_res = [];
-        $i = 1;
         while ($prod = $prods->Fetch()) {
             $el_res = CIBlockElement::getById($prod['UF_XML_ID'])->GetNextElement();
+            $elementFields = $el_res->GetFields();
+            $elProps = $el_res->GetProperties();
 
-            $product = new \Simba\Catalog\Product($prod['UF_XML_ID']);
-            $quantity = $product->getQuantity();
-            $price = CCatalogProduct::GetOptimalPrice($prod['UF_XML_ID']);
+            $sku_res = CCatalogSKU::GetProductInfo($elementFields['ID'], $elementFields['IBLOCK_ID']);
+            if(!empty($sku_res)) {
+                $product = new \Simba\Catalog\Product($elementFields['ID']);
+                $quantity = $product->getQuantity();
+                $price = CCatalogProduct::GetOptimalPrice($elementFields['ID']);
+                    
+                $par_res = CIBlockElement::getById($sku_res['ID'])->GetNextElement();
+                $parFields = $par_res->GetFields();
+                $parProps = $par_res->GetProperties();
+                
+                $hlblock = \Bitrix\Highloadblock\HighloadBlockTable::getById(10)->fetch();
+                $entity = \Bitrix\Highloadblock\HighloadBlockTable::compileEntity($hlblock);
+                $entityDataClass = $entity->getDataClass();
+
+                $ob_size = $entityDataClass::getList(array(
+                    "select" => array("*"),
+                    'filter' => ['UF_XML_ID' => $elProps['RAZMER_OBSHCHIY']['VALUE']]
+                ))->Fetch();
+
+                $elementFields['NAME'] = $parFields['NAME'] . ' Размер: ' . $ob_size['UF_NAME'];
+
+                $elementFields['PREVIEW_PICTURE'] = $parFields['PREVIEW_PICTURE'];
+                $elProps['NOVINKA'] = $parProps['NOVINKA'];
+            } else {
+                $product = new \Simba\Catalog\Product($prod['UF_XML_ID']);
+                $quantity = $product->getQuantity();
+                $price = CCatalogProduct::GetOptimalPrice($prod['UF_XML_ID']);
+            }
 
             $price['FORMATED_PRICE'] = number_format($price['RESULT_PRICE']['BASE_PRICE'], 0, '', ' ');
             $price['FORMATED_DISCOUNT_PRICE'] = number_format($price['RESULT_PRICE']['DISCOUNT_PRICE'], 0, '', ' ');
             $price['FORMATED_DISCOUNT_DIFF'] = number_format($price['RESULT_PRICE']['DISCOUNT'], 0, '', ' ');
             $price['DISCOUNT_DIFF'] = round(($price['RESULT_PRICE']['DISCOUNT_PRICE'] * 100) / $price['RESULT_PRICE']['BASE_PRICE']) - 100;
 
-            $elementFields = $el_res->GetFields();
             $elementFields['PREVIEW_PICTURE'] = CFile::GetFileArray($elementFields['PREVIEW_PICTURE']);
 
             if($data['avaliable'] == true) {
                 if($quantity['QUANTITY'] == 0)
                     continue;
             }
-            
-            $ob_res[] = array_merge(
-                $elementFields, 
+
+            $ob_res[$prod['UF_XML_ID']] = array_merge(
+                $elementFields,
                 [
-                    'PROPERTIES' => $el_res->GetProperties(), 
+                    'PROPERTIES' => $elProps,
                     'PRICE' => $price,
                     'QUANTITY' => $quantity
                 ]
@@ -112,16 +138,17 @@ class FavoritesController
                     if($data['order'] == 'desc')
                         usort($ob_res, 'sortByAvaliableDesc');
                     break;
-                
+
                 default:
                     # code...
                     break;
             }
         }
 
-        $ob_res = array_chunk($ob_res, 8);
+        $res['favorites'] = $ob_res;
+        $res['chunks'] = array_chunk($ob_res, 8);
 
-        echo json_encode($ob_res);
+        echo json_encode($res);
     }
 }
 
